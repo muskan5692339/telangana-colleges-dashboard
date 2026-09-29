@@ -15,7 +15,23 @@ Visual language follows the existing CURIE / She for STEM product: navy `#2C4869
 | Vercel `telangana-colleges-dashboard` | Production site. **Settings → General → Root Directory must be empty.** |
 | Laptop folder with `package.json` | Local copy for `npm run dev`. |
 
-Vercel only builds what is on GitHub `main`. Excel uploads on Vercel are kept in `/tmp` and are wiped on the next deploy or cold start, so the 53-college roster ships inside the code (`src/lib/inc10-colleges.json` and `src/lib/inc10-source-overlay.json`).
+Vercel only builds what is on GitHub `main`. The data each cohort shows ships inside the code (`src/lib/inc10-source-overlay.json` and `src/lib/inc13-source-overlay.json`). An upload on **Upload** commits the new data to that file on GitHub, and Vercel then redeploys production on its own (see [Keeping data up to date](#keeping-data-up-to-date)).
+
+## Keeping data up to date
+
+Re-upload the source workbook on **Upload** whenever it changes. The upload:
+
+1. shows the new data straight away on the server that took the upload, and
+2. commits `src/lib/<batch>-source-overlay.json` to GitHub `main`, so Vercel redeploys and every visitor sees it in about 2 minutes.
+
+Step 2 needs a GitHub token on Vercel, set once:
+
+1. GitHub → **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**. Repository access: only `muskan5692339/telangana-colleges-dashboard`. Permissions: **Contents: Read and write**.
+2. Vercel → project `telangana-colleges-dashboard` → **Settings → Environment Variables** → add `GITHUB_TOKEN` with that token for **Production**, then **Redeploy** once.
+
+Optional: `GITHUB_REPO` (default `muskan5692339/telangana-colleges-dashboard`) and `GITHUB_BRANCH` (default `main`). Without `GITHUB_TOKEN` the upload still works but lasts only until the next deploy, and the upload message says so.
+
+To preview a workbook from a laptop without uploading: `npx tsx scripts/bake-source.ts inc10 "<path to workbook.xlsx>"`. Add `--write` to update the overlay file in the repo.
 
 ## Publish to GitHub and Vercel
 
@@ -86,10 +102,10 @@ The full per-college link list is on **Share** after sign-in.
 
 ## Excel upload
 
-- **3rd Year : Old Batch** — `Inc10.0_Student_Facing_Monitoring.xlsx`, tabs `College-wise selection` and `Student Wise - Phase 2`. This is not the Overall Monitoring Mastersheet.
+- **3rd Year : Old Batch** — `Inc10.0_Student_Facing_Monitoring.xlsx`, tabs `College-wise selection` and `Student Wise - Phase 2`. This is not the Overall Monitoring Mastersheet. Accelerator selection comes from the `Final Selection Status` column on `Student Wise - Phase 2`: `Accelerator Selected` is selected and a blank cell is not. Each college's count is the number of its selected students on that sheet. If the sheet has no status column, `Final Selection Variable` = 4 counts as selected.
 - **2nd Year : New Batch** — `Inc13_Student Enrollment.xlsx`. Names are `NAME_STREAM`, dummy email is `[code]@sfsvigyanshaala.com`, and the password is `VS@123` for [mytribe.vigyanshaala.com](https://mytribe.vigyanshaala.com). MJPTBC Adilabad has 45 students (codes 19850–19894). Test names such as `TEST STUDENT ONE` are stripped.
 
-Only sheets with a colored Excel tab are imported. Upload replaces one cohort and leaves the other unchanged. An upload never shrinks the college list below the roster that ships in code. On Vercel an upload lasts only until the next deploy, so change the roster permanently by updating the code on GitHub.
+Only sheets with a colored Excel tab are imported. Upload replaces one cohort and leaves the other unchanged, and it is saved to GitHub when `GITHUB_TOKEN` is set.
 
 College staff request a student name in **capital letters** and a subject area. Admin enrolls from the backend and allots the dummy email and password. Renames and deletes stay pending until approved on **Requests**.
 

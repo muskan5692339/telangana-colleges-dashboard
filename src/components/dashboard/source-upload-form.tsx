@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { PublishResult } from "@/lib/github-publish";
 import type { Batch } from "@/lib/types";
 
 export function SourceUploadForm({
@@ -32,8 +33,10 @@ export function SourceUploadForm({
           error?: string;
           colleges?: number;
           students?: number;
+          acceleratorSelected?: number;
           fileName?: string;
           skippedSheets?: string[];
+          publish?: PublishResult;
         }
       | null;
     setPending(false);
@@ -46,10 +49,23 @@ export function SourceUploadForm({
         ? ` · skipped uncolored: ${payload.skippedSheets.join(", ")}`
         : "";
     toast.success(
-      `${payload?.fileName ?? file.name} loaded · ${payload?.colleges ?? 0} colleges, ${payload?.students ?? 0} students${skipped}`,
+      `${payload?.fileName ?? file.name} loaded · ${payload?.colleges ?? 0} colleges, ${payload?.students ?? 0} students, ${payload?.acceleratorSelected ?? 0} accelerator selected${skipped}`,
     );
+    const publish = payload?.publish;
+    if (publish?.status === "published") {
+      toast.success("Saved to GitHub. Vercel redeploys production in about 2 minutes.", { duration: 10000 });
+    } else if (publish?.status === "unchanged") {
+      toast.info("Data matches what is already on GitHub. Nothing to redeploy.");
+    } else if (publish) {
+      toast.error(
+        `Not saved to GitHub, so this upload disappears on the next deploy. ${
+          publish.status === "skipped" ? publish.reason : publish.error
+        }`,
+        { duration: 15000 },
+      );
+    }
     setFile(null);
-    window.location.reload();
+    setTimeout(() => window.location.reload(), publish?.status === "published" ? 2500 : 0);
   }
 
   return (

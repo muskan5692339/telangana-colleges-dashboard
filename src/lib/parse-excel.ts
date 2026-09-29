@@ -191,21 +191,34 @@ function flagFromValue(value: unknown): boolean | null {
   return false;
 }
 
-function studentAcceleratorFlag(row: Record<string, unknown>): boolean {
-  const dedicated = pick(row, [
-    "accelerator selected",
-    "final selection status",
-    "selected for accelerator",
-  ]);
-  const dedicatedFlag = flagFromValue(dedicated);
-  if (dedicatedFlag != null && hasMeaningfulFlag(dedicated)) {
-    return dedicatedFlag;
-  }
+const SELECTION_STATUS_ALIASES = [
+  "accelerator selected",
+  "final selection status",
+  "selected for accelerator",
+];
+const SELECTION_VARIABLE_ALIASES = ["final selection variable"];
+/** Final Selection Variable counts the criteria met; only a full score is an accelerator selection. */
+const SELECTION_VARIABLE_FULL_SCORE = 4;
 
-  const variable = pick(row, ["final selection variable"]);
-  const variableFlag = flagFromValue(variable);
-  if (variableFlag != null && hasMeaningfulFlag(variable)) {
-    return variableFlag;
+function hasSelectionColumn(rows: Record<string, unknown>[]) {
+  const sample = rows[0];
+  if (!sample) return false;
+  return (
+    pick(sample, SELECTION_STATUS_ALIASES) !== undefined ||
+    pick(sample, SELECTION_VARIABLE_ALIASES) !== undefined
+  );
+}
+
+/** A present status column is authoritative: a blank cell means not selected. */
+function studentAcceleratorFlag(row: Record<string, unknown>): boolean {
+  const status = pick(row, SELECTION_STATUS_ALIASES);
+  if (status !== undefined) return flagFromValue(status) === true;
+
+  const variable = pick(row, SELECTION_VARIABLE_ALIASES);
+  if (variable !== undefined) {
+    if (!hasMeaningfulFlag(variable)) return false;
+    const n = asNumber(variable);
+    return n != null ? n >= SELECTION_VARIABLE_FULL_SCORE : parseFlag(variable);
   }
 
   const loose = pick(row, ["final selection", "selection status"]);
@@ -707,6 +720,7 @@ function collegesFromStudents(
   students: Student[],
   existing: College[],
   addMissing = true,
+  countFromStudents = false,
 ): College[] {
   const bySlug = new Map(existing.map((college) => [college.slug, { ...college }]));
   for (const student of students) {
@@ -723,6 +737,10 @@ function collegesFromStudents(
     const flagged = atCollege.filter((student) => student.acceleratorSelected).length;
     if (college.enrolled === 0 && atCollege.length > 0) {
       college.enrolled = atCollege.length;
+    }
+    if (countFromStudents) {
+      college.acceleratorSelected = flagged;
+      continue;
     }
     college.acceleratorSelected = asHeadcount(
       Math.max(college.acceleratorSelected, flagged),
@@ -758,6 +776,7 @@ export function parseWorkbook(buffer: ArrayBuffer | Buffer): ParsedWorkbook {
   let students: Student[] = [];
   const usedSheets: string[] = [];
   let hadCollegeSheet = false;
+  let rosterHasSelection = false;
 
   for (const name of sheets) {
     const rows = rowsFromSheet(workbook.Sheets[name]);
@@ -775,7 +794,9 @@ export function parseWorkbook(buffer: ArrayBuffer | Buffer): ParsedWorkbook {
       hadCollegeSheet = true;
       usedSheets.push(name);
     } else if (kind === "students") {
-      students = mergeStudents(students, parseStudents(rows, isSelectionRoster(name)));
+      const selectionRoster = isSelectionRoster(name);
+      if (!selectionRoster && hasSelectionColumn(rows)) rosterHasSelection = true;
+      students = mergeStudents(students, parseStudents(rows, selectionRoster));
       usedSheets.push(name);
     }
   }
@@ -788,7 +809,7 @@ export function parseWorkbook(buffer: ArrayBuffer | Buffer): ParsedWorkbook {
   }
 
   if (students.length > 0 || colleges.length > 0) {
-    colleges = collegesFromStudents(students, colleges, !hadCollegeSheet);
+    colleges = collegesFromStudents(students, colleges, !hadCollegeSheet, rosterHasSelection);
   }
 
   return { colleges, students, sheets: allSheets, usedSheets, skippedSheets };
@@ -799,7 +820,7 @@ export function buildTemplateWorkbook() {
     ["College", "Enrolled", "Accelerator selected"],
     ["MJPTBC Adilabad", 35, 1],
     ["MJPTBC Jogulamba Gadwal", 50, 0],
-    ["TSWRDCW Kamareddy", 39, 13],
+    ["TSWRDCW Kamareddy", 39, 1],
   ];
   const students = [
     [

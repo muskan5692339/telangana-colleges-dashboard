@@ -8,8 +8,10 @@ import { isBatchId } from "@/lib/cohort-data";
 import { BATCHES } from "@/lib/cohort-data";
 import { parseWorkbook } from "@/lib/parse-excel";
 import { readLiveStore, writeLiveStore } from "@/lib/live-store";
+import { publishOverlay } from "@/lib/github-publish";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   const jar = await cookies();
@@ -55,12 +57,13 @@ export async function POST(request: Request) {
     studentCount: parsed.students.length,
     uploadedAt: new Date().toISOString(),
   };
-  store.batches[batchId] = {
+  const overlay = {
     colleges: parsed.colleges,
     students: parsed.students,
     sourceSheet: file.name,
     importedSheets: record.sheets,
   };
+  store.batches[batchId] = overlay;
   store.uploads = [record, ...store.uploads.filter((item) => item.batchId !== batchId)].slice(0, 12);
   store.updatedAt = record.uploadedAt;
   await writeLiveStore(store);
@@ -69,6 +72,7 @@ export async function POST(request: Request) {
     : path.join(process.cwd(), "data", "uploads");
   await mkdir(uploadDir, { recursive: true });
   await writeFile(path.join(uploadDir, `${batchId}.xlsx`), buffer);
+  const publish = await publishOverlay(batchId, overlay, file.name);
 
   return NextResponse.json({
     ok: true,
@@ -76,7 +80,9 @@ export async function POST(request: Request) {
     fileName: file.name,
     colleges: parsed.colleges.length,
     students: parsed.students.length,
+    acceleratorSelected: parsed.students.filter((student) => student.acceleratorSelected).length,
     sheets: record.sheets,
     skippedSheets: parsed.skippedSheets,
+    publish,
   });
 }

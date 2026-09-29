@@ -104,7 +104,7 @@ test("template workbook includes Kamareddy selected students", () => {
   const parsed = parseWorkbook(buildTemplateWorkbook());
   const college = parsed.colleges.find((item) => item.slug === "tswrdcw-kamareddy");
   assert.equal(college?.enrolled, 39);
-  assert.equal(college?.acceleratorSelected, 13);
+  assert.equal(college?.acceleratorSelected, 1);
   const keerthana = parsed.students.find((student) => student.studentCode === "14153");
   assert.equal(keerthana?.name, "Keerthana");
   assert.equal(keerthana?.acceleratorSelected, true);
@@ -259,6 +259,29 @@ test("flags Accelerator Selected and Final Selection Variable 4 as selected stud
     scoredParsed.colleges.find((c) => c.slug === "mjptbc-peddapalli")?.acceleratorSelected,
     1,
   );
+});
+
+test("a blank Final Selection Status is not selected, even when Final Selection Variable is 1", () => {
+  const raw = workbookFromSheets({
+    "College-wise selection": [
+      ["Name of College", "No. of student ", "Accelerator \nSelection"],
+      ["TTWRDCW Suryapeta", 27, 4],
+      ["MJPTBC Adilabad", 35, 14],
+    ],
+    "Student Wise - Phase 2": [
+      ["Student Code", "Name of the Student", "Name of the college", "Email", "Final Selection\nVariable", "Final Selection\nStatus"],
+      [13600, "VAJJE LIKITHA", "TTWRDCW Suryapeta", "13600@vigyanshaala.com", 1, ""],
+      [13601, "B STUDENT", "TTWRDCW Suryapeta", "13601@vigyanshaala.com", 3, ""],
+      [13181, "A AMULYA", "MJPTBC Adilabad", "13181@vigyanshaala.com", 4, "Accelerator Selected"],
+      [13182, "C STUDENT", "MJPTBC Adilabad", "13182@vigyanshaala.com", 0, ""],
+    ],
+  });
+  const parsed = parseWorkbook(applyTabColors(raw, ["College-wise selection", "Student Wise - Phase 2"]));
+  assert.equal(parsed.students.find((s) => s.name === "VAJJE LIKITHA")?.acceleratorSelected, false);
+  assert.equal(parsed.students.find((s) => s.name === "A AMULYA")?.acceleratorSelected, true);
+  assert.equal(parsed.colleges.find((c) => c.slug === "ttwrdcw-suryapeta")?.acceleratorSelected, 0);
+  assert.equal(parsed.colleges.find((c) => c.slug === "mjptbc-adilabad")?.acceleratorSelected, 1);
+  assert.equal(parsed.colleges.find((c) => c.slug === "mjptbc-adilabad")?.enrolled, 35);
 });
 
 test("reads Inc 13 student enrollment login id and password for 56-college source shape", () => {

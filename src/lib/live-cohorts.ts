@@ -12,8 +12,7 @@ const SOURCE_OVERLAY: Partial<Record<BatchId, LiveBatchOverlay>> = {
 
 function pickOverlay(batchId: BatchId, live?: LiveBatchOverlay) {
   const baked = SOURCE_OVERLAY[batchId];
-  if (!live) return baked;
-  if (baked && live.colleges.length < baked.colleges.length) return baked;
+  if (!live || live.students.length === 0) return baked;
   return live;
 }
 
