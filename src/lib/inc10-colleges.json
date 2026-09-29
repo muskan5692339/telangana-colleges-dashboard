@@ -1,0 +1,320 @@
+[
+  {
+    "slug": "mjptbc-adilabad",
+    "name": "MJPTBC Adilabad",
+    "enrolled": 35,
+    "acceleratorSelected": 14
+  },
+  {
+    "slug": "mjptbc-ghanpur",
+    "name": "MJPTBC Ghanpur",
+    "enrolled": 45,
+    "acceleratorSelected": 40
+  },
+  {
+    "slug": "mjptbc-hyderabad-keesara",
+    "name": "MJPTBC Hyderabad_Keesara",
+    "enrolled": 30,
+    "acceleratorSelected": 26
+  },
+  {
+    "slug": "mjptbc-jogulamba-gadwal",
+    "name": "MJPTBC Jogulamba Gadwal",
+    "enrolled": 50,
+    "acceleratorSelected": 23
+  },
+  {
+    "slug": "mjptbc-khamam",
+    "name": "MJPTBC Khamam",
+    "enrolled": 50,
+    "acceleratorSelected": 13
+  },
+  {
+    "slug": "mjptbc-medhcal-keesara",
+    "name": "MJPTBC Medhcal_Keesara",
+    "enrolled": 30,
+    "acceleratorSelected": 22
+  },
+  {
+    "slug": "mjptbc-mulugu-and-mahabubabad",
+    "name": "MJPTBC Mulugu & Mahabubabad",
+    "enrolled": 37,
+    "acceleratorSelected": 0
+  },
+  {
+    "slug": "mjptbc-nizamabad",
+    "name": "MJPTBC Nizamabad",
+    "enrolled": 50,
+    "acceleratorSelected": 41
+  },
+  {
+    "slug": "mjptbc-peddapalli",
+    "name": "MJPTBC Peddapalli",
+    "enrolled": 12,
+    "acceleratorSelected": 8
+  },
+  {
+    "slug": "mjptbc-suryapet",
+    "name": "MJPTBC Suryapet",
+    "enrolled": 40,
+    "acceleratorSelected": 12
+  },
+  {
+    "slug": "mjptbc-wargal",
+    "name": "MJPTBC Wargal",
+    "enrolled": 50,
+    "acceleratorSelected": 41
+  },
+  {
+    "slug": "tswrd-pharmacy-college-mahbubabad",
+    "name": "TSWRD Pharmacy College, Mahbubabad",
+    "enrolled": 37,
+    "acceleratorSelected": 16
+  },
+  {
+    "slug": "tswrdc-and-pgc-budvel",
+    "name": "TSWRDC & PGC, Budvel",
+    "enrolled": 41,
+    "acceleratorSelected": 14
+  },
+  {
+    "slug": "tswrdc-khammam",
+    "name": "TSWRDC Khammam",
+    "enrolled": 50,
+    "acceleratorSelected": 22
+  },
+  {
+    "slug": "tswrdc-mahendrahills",
+    "name": "TSWRDC Mahendrahills",
+    "enrolled": 51,
+    "acceleratorSelected": 10
+  },
+  {
+    "slug": "tswrdc-nirmal",
+    "name": "TSWRDC Nirmal",
+    "enrolled": 32,
+    "acceleratorSelected": 10
+  },
+  {
+    "slug": "tswrdc-nizamabad",
+    "name": "TSWRDC Nizamabad",
+    "enrolled": 48,
+    "acceleratorSelected": 1
+  },
+  {
+    "slug": "tswrdc-siddipet",
+    "name": "TSWRDC Siddipet",
+    "enrolled": 21,
+    "acceleratorSelected": 17
+  },
+  {
+    "slug": "tswrdcw-adilabad",
+    "name": "TSWRDCW Adilabad",
+    "enrolled": 50,
+    "acceleratorSelected": 12
+  },
+  {
+    "slug": "tswrdcw-armoor",
+    "name": "TSWRDCW Armoor",
+    "enrolled": 53,
+    "acceleratorSelected": 22
+  },
+  {
+    "slug": "tswrdcw-bhongir",
+    "name": "TSWRDCW Bhongir",
+    "enrolled": 51,
+    "acceleratorSelected": 26
+  },
+  {
+    "slug": "tswrdcw-bhupalpally",
+    "name": "TSWRDCW Bhupalpally",
+    "enrolled": 44,
+    "acceleratorSelected": 13
+  },
+  {
+    "slug": "tswrdcw-jagathgirigutta",
+    "name": "TSWRDCW Jagathgirigutta",
+    "enrolled": 50,
+    "acceleratorSelected": 15
+  },
+  {
+    "slug": "tswrdcw-jagtial",
+    "name": "TSWRDCW Jagtial",
+    "enrolled": 10,
+    "acceleratorSelected": 0
+  },
+  {
+    "slug": "tswrdcw-kamareddy",
+    "name": "TSWRDCW Kamareddy",
+    "enrolled": 39,
+    "acceleratorSelected": 16
+  },
+  {
+    "slug": "tswrdcw-karimnagar",
+    "name": "TSWRDCW Karimnagar",
+    "enrolled": 48,
+    "acceleratorSelected": 0
+  },
+  {
+    "slug": "tswrdcw-kothagudem",
+    "name": "TSWRDCW Kothagudem",
+    "enrolled": 47,
+    "acceleratorSelected": 10
+  },
+  {
+    "slug": "tswrdcw-mahbubnagar",
+    "name": "TSWRDCW Mahbubnagar",
+    "enrolled": 32,
+    "acceleratorSelected": 2
+  },
+  {
+    "slug": "tswrdcw-mancherial",
+    "name": "TSWRDCW Mancherial",
+    "enrolled": 45,
+    "acceleratorSelected": 15
+  },
+  {
+    "slug": "tswrdcw-medak",
+    "name": "TSWRDCW Medak",
+    "enrolled": 37,
+    "acceleratorSelected": 9
+  },
+  {
+    "slug": "tswrdcw-nagarkurnool",
+    "name": "TSWRDCW Nagarkurnool",
+    "enrolled": 40,
+    "acceleratorSelected": 10
+  },
+  {
+    "slug": "tswrdcw-nalgonda",
+    "name": "TSWRDCW Nalgonda",
+    "enrolled": 48,
+    "acceleratorSelected": 12
+  },
+  {
+    "slug": "tswrdcw-sirsilla",
+    "name": "TSWRDCW Sirsilla",
+    "enrolled": 42,
+    "acceleratorSelected": 9
+  },
+  {
+    "slug": "tswrdcw-suryapet",
+    "name": "TSWRDCW Suryapet",
+    "enrolled": 40,
+    "acceleratorSelected": 20
+  },
+  {
+    "slug": "tswrdcw-vikarabad",
+    "name": "TSWRDCW Vikarabad",
+    "enrolled": 58,
+    "acceleratorSelected": 13
+  },
+  {
+    "slug": "tswrdcw-wanaparthy",
+    "name": "TSWRDCW Wanaparthy",
+    "enrolled": 33,
+    "acceleratorSelected": 9
+  },
+  {
+    "slug": "tswrdcw-warangal-west",
+    "name": "TSWRDCW Warangal West",
+    "enrolled": 31,
+    "acceleratorSelected": 10
+  },
+  {
+    "slug": "tswrdcw-warangal-east",
+    "name": "TSWRDCW Warangal east",
+    "enrolled": 31,
+    "acceleratorSelected": 3
+  },
+  {
+    "slug": "ttwrdcw-asifabad",
+    "name": "TTWRDCW Asifabad",
+    "enrolled": 36,
+    "acceleratorSelected": 4
+  },
+  {
+    "slug": "ttwrdcw-dammapeta",
+    "name": "TTWRDCW Dammapeta",
+    "enrolled": 10,
+    "acceleratorSelected": 1
+  },
+  {
+    "slug": "ttwrdcw-devarakonda",
+    "name": "TTWRDCW Devarakonda",
+    "enrolled": 51,
+    "acceleratorSelected": 5
+  },
+  {
+    "slug": "ttwrdcw-jangaon",
+    "name": "TTWRDCW Jangaon",
+    "enrolled": 53,
+    "acceleratorSelected": 24
+  },
+  {
+    "slug": "ttwrdcw-khammam",
+    "name": "TTWRDCW Khammam",
+    "enrolled": 34,
+    "acceleratorSelected": 3
+  },
+  {
+    "slug": "ttwrdcw-kothagudem",
+    "name": "TTWRDCW Kothagudem",
+    "enrolled": 44,
+    "acceleratorSelected": 11
+  },
+  {
+    "slug": "ttwrdcw-mahabubabad",
+    "name": "TTWRDCW Mahabubabad",
+    "enrolled": 43,
+    "acceleratorSelected": 5
+  },
+  {
+    "slug": "ttwrdcw-mahabubnagar",
+    "name": "TTWRDCW Mahabubnagar",
+    "enrolled": 26,
+    "acceleratorSelected": 0
+  },
+  {
+    "slug": "ttwrdcw-medak",
+    "name": "TTWRDCW Medak",
+    "enrolled": 43,
+    "acceleratorSelected": 3
+  },
+  {
+    "slug": "ttwrdcw-mulugu",
+    "name": "TTWRDCW Mulugu",
+    "enrolled": 23,
+    "acceleratorSelected": 0
+  },
+  {
+    "slug": "ttwrdcw-nizamabad",
+    "name": "TTWRDCW Nizamabad",
+    "enrolled": 39,
+    "acceleratorSelected": 8
+  },
+  {
+    "slug": "ttwrdcw-shadnagar",
+    "name": "TTWRDCW Shadnagar",
+    "enrolled": 25,
+    "acceleratorSelected": 2
+  },
+  {
+    "slug": "ttwrdcw-sircilla",
+    "name": "TTWRDCW Sircilla",
+    "enrolled": 29,
+    "acceleratorSelected": 4
+  },
+  {
+    "slug": "ttwrdcw-suryapeta",
+    "name": "TTWRDCW Suryapeta",
+    "enrolled": 27,
+    "acceleratorSelected": 4
+  },
+  {
+    "slug": "ttwrdcw-utnoor",
+    "name": "TTWRDCW Utnoor",
+    "enrolled": 51,
+    "acceleratorSelected": 9
+  }
+]

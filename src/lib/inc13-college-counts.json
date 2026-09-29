@@ -1,0 +1,226 @@
+{
+  "mjptbc-adilabad": {
+    "name": "MJPTBC Adilabad",
+    "enrolled": 45
+  },
+  "mjptbc-ghanpur": {
+    "name": "MJPTBC Ghanpur",
+    "enrolled": 50
+  },
+  "mjptbc-hyderabad-keesara": {
+    "name": "MJPTBC Hyderabad_Keesara",
+    "enrolled": 40
+  },
+  "mjptbc-jogulamba-gadwal": {
+    "name": "MJPTBC Jogulamba Gadwal",
+    "enrolled": 48
+  },
+  "mjptbc-kamareddy": {
+    "name": "MJPTBC Kamareddy",
+    "enrolled": 10
+  },
+  "mjptbc-khammam": {
+    "name": "MJPTBC Khammam",
+    "enrolled": 44
+  },
+  "mjptbc-mahabubabad": {
+    "name": "MJPTBC Mahabubabad",
+    "enrolled": 20
+  },
+  "mjptbc-medhcal-keesara": {
+    "name": "MJPTBC Medhcal_Keesara",
+    "enrolled": 40
+  },
+  "mjptbc-mulugu": {
+    "name": "MJPTBC Mulugu",
+    "enrolled": 41
+  },
+  "mjptbc-nizamabad": {
+    "name": "MJPTBC Nizamabad",
+    "enrolled": 40
+  },
+  "mjptbc-pedapalli": {
+    "name": "MJPTBC Pedapalli",
+    "enrolled": 41
+  },
+  "mjptbc-sangareddy": {
+    "name": "MJPTBC Sangareddy",
+    "enrolled": 57
+  },
+  "mjptbc-suryapet": {
+    "name": "MJPTBC Suryapet",
+    "enrolled": 59
+  },
+  "mjptbc-wargal": {
+    "name": "MJPTBC Wargal",
+    "enrolled": 50
+  },
+  "tswrd-pharmacy-college-mahbubabad": {
+    "name": "TSWRD Pharmacy College, Mahbubabad",
+    "enrolled": 50
+  },
+  "tswrdc-and-pgc-budvel": {
+    "name": "TSWRDC & PGC, Budvel",
+    "enrolled": 30
+  },
+  "tswrdc-khammam": {
+    "name": "TSWRDC Khammam",
+    "enrolled": 26
+  },
+  "tswrdc-mahendrahills": {
+    "name": "TSWRDC Mahendrahills",
+    "enrolled": 50
+  },
+  "tswrdc-nirmal": {
+    "name": "TSWRDC Nirmal",
+    "enrolled": 48
+  },
+  "tswrdc-nizamabad": {
+    "name": "TSWRDC Nizamabad",
+    "enrolled": 37
+  },
+  "tswrdc-siddipet": {
+    "name": "TSWRDC Siddipet",
+    "enrolled": 25
+  },
+  "tswrdcw-adilabad": {
+    "name": "TSWRDCW Adilabad",
+    "enrolled": 44
+  },
+  "tswrdcw-armoor": {
+    "name": "TSWRDCW Armoor",
+    "enrolled": 55
+  },
+  "tswrdcw-bhongir": {
+    "name": "TSWRDCW Bhongir",
+    "enrolled": 50
+  },
+  "tswrdcw-bhupalpally": {
+    "name": "TSWRDCW Bhupalpally",
+    "enrolled": 66
+  },
+  "tswrdcw-jagathgirigutta": {
+    "name": "TSWRDCW Jagathgirigutta",
+    "enrolled": 52
+  },
+  "tswrdcw-jagtial": {
+    "name": "TSWRDCW Jagtial",
+    "enrolled": 48
+  },
+  "tswrdcw-kamareddy": {
+    "name": "TSWRDCW Kamareddy",
+    "enrolled": 44
+  },
+  "tswrdcw-karimnagar": {
+    "name": "TSWRDCW Karimnagar",
+    "enrolled": 42
+  },
+  "tswrdcw-kothagudem": {
+    "name": "TSWRDCW Kothagudem",
+    "enrolled": 24
+  },
+  "tswrdcw-mahbubnagar": {
+    "name": "TSWRDCW Mahbubnagar",
+    "enrolled": 27
+  },
+  "tswrdcw-mancherial": {
+    "name": "TSWRDCW Mancherial",
+    "enrolled": 41
+  },
+  "tswrdcw-medak": {
+    "name": "TSWRDCW Medak",
+    "enrolled": 43
+  },
+  "tswrdcw-nagarkurnool": {
+    "name": "TSWRDCW Nagarkurnool",
+    "enrolled": 40
+  },
+  "tswrdcw-nalgonda": {
+    "name": "TSWRDCW Nalgonda",
+    "enrolled": 29
+  },
+  "tswrdcw-sircilla": {
+    "name": "TSWRDCW Sircilla",
+    "enrolled": 45
+  },
+  "tswrdcw-suryapet": {
+    "name": "TSWRDCW Suryapet",
+    "enrolled": 44
+  },
+  "tswrdcw-vikarabad": {
+    "name": "TSWRDCW Vikarabad",
+    "enrolled": 52
+  },
+  "tswrdcw-wanaparthy": {
+    "name": "TSWRDCW Wanaparthy",
+    "enrolled": 30
+  },
+  "tswrdcw-warangal-east": {
+    "name": "TSWRDCW Warangal east",
+    "enrolled": 20
+  },
+  "tswrdcw-warangal-west": {
+    "name": "TSWRDCW Warangal West",
+    "enrolled": 49
+  },
+  "ttwrdc-asifabad": {
+    "name": "TTWRDC Asifabad",
+    "enrolled": 53
+  },
+  "ttwrdc-dammapeta": {
+    "name": "TTWRDC Dammapeta",
+    "enrolled": 23
+  },
+  "ttwrdc-devarakonda": {
+    "name": "TTWRDC Devarakonda",
+    "enrolled": 46
+  },
+  "ttwrdc-janagaon": {
+    "name": "TTWRDC Janagaon",
+    "enrolled": 59
+  },
+  "ttwrdc-khammam": {
+    "name": "TTWRDC Khammam",
+    "enrolled": 55
+  },
+  "ttwrdc-kothagudem": {
+    "name": "TTWRDC Kothagudem",
+    "enrolled": 34
+  },
+  "ttwrdc-mahabubabad": {
+    "name": "TTWRDC Mahabubabad",
+    "enrolled": 32
+  },
+  "ttwrdc-mahabubnagar": {
+    "name": "TTWRDC Mahabubnagar",
+    "enrolled": 57
+  },
+  "ttwrdc-medak": {
+    "name": "TTWRDC Medak",
+    "enrolled": 52
+  },
+  "ttwrdc-mulugu": {
+    "name": "TTWRDC Mulugu",
+    "enrolled": 26
+  },
+  "ttwrdc-nizamabad": {
+    "name": "TTWRDC Nizamabad",
+    "enrolled": 33
+  },
+  "ttwrdc-shadnagar": {
+    "name": "TTWRDC Shadnagar",
+    "enrolled": 37
+  },
+  "ttwrdc-sircilla": {
+    "name": "TTWRDC Sircilla",
+    "enrolled": 35
+  },
+  "ttwrdc-suryapeta": {
+    "name": "TTWRDC Suryapeta",
+    "enrolled": 47
+  },
+  "ttwrdc-utnoor": {
+    "name": "TTWRDC Utnoor",
+    "enrolled": 46
+  }
+}
