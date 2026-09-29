@@ -1,8 +1,16 @@
+import { CollegeTable } from "@/components/dashboard/college-table";
 import { EnrollmentTable } from "@/components/dashboard/enrollment-table";
 import { StudentTable } from "@/components/dashboard/student-table";
 import { StudentShell } from "@/components/dashboard/student-shell";
-import { acceleratorSelectedCount, getCollege, studentsForCollege } from "@/lib/cohort-data";
+import {
+  acceleratorSelectedCount,
+  collegesForCohort,
+  getCollege,
+  studentsForCollege,
+  studentsTrackedByCollege,
+} from "@/lib/cohort-data";
 import { formatSelectionPct, selectionPct, selectionTone } from "@/lib/selection";
+import { STUDENT_VIEW_BASE } from "@/lib/public-path";
 import { MYTRIBE_APP_URL, type Batch } from "@/lib/types";
 import { studentViewPath } from "@/lib/share";
 
@@ -93,9 +101,28 @@ export function StudentCollegeScreen({
               </p>
             </div>
           </div>
+          <section className="space-y-3">
+            <div>
+              <h2 className="font-display text-xl font-bold text-[var(--color-navy)] md:text-2xl">
+                College-wise selection
+              </h2>
+              <p className="mt-1 text-sm text-[var(--color-curie-muted)]">
+                Every college in {cohort.label}, ranked by selection % from high to low.
+              </p>
+            </div>
+            <CollegeTable
+              cohortSlug={cohort.slug}
+              label={cohort.label}
+              colleges={collegesForCohort(cohort)}
+              trackedBySlug={studentsTrackedByCollege(cohort)}
+              kind={cohort.kind}
+              hrefBase={STUDENT_VIEW_BASE}
+              activeSlug={college.slug}
+            />
+          </section>
           <StudentTable students={students} collegeName={college.name} />
           <p className="pb-6 text-[12px] text-[var(--color-curie-muted)]">
-            Read-only college view. This link shows {college.name} only. No staff login.
+            Read-only college view. No staff login.
           </p>
         </>
       )}

@@ -19,14 +19,17 @@ export function CollegeWiseButton({
   colleges,
   trackedBySlug,
   kind = "monitoring",
+  hrefBase = "/cohorts",
 }: {
   cohortSlug: string;
   label: string;
   colleges: College[];
   trackedBySlug: Record<string, number>;
   kind?: CohortKind;
+  hrefBase?: "/cohorts" | "/student-view";
 }) {
   const enrollment = kind === "enrollment";
+  const title = enrollment ? "College-wise enrollment" : "College-wise nomination & selection";
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,16 +38,18 @@ export function CollegeWiseButton({
           className="h-12 shrink-0 gap-2 rounded-full px-4 text-sm font-semibold md:px-5"
         >
           <Table2 className="h-4 w-4" />
-          {enrollment ? "College-wise enrollment" : "College-wise selection"}
+          {title}
         </Button>
       </DialogTrigger>
       <DialogContent className="flex max-h-[min(92dvh,960px)] w-[min(1100px,calc(100%-1.25rem))] max-w-none flex-col gap-4 overflow-hidden p-4 sm:max-w-none md:p-6">
         <DialogHeader className="pr-12">
           <DialogTitle className="font-display text-xl text-[var(--color-navy)] md:text-2xl">
-            {enrollment ? "College-wise enrollment" : "College-wise selection"}
+            {title}
           </DialogTitle>
           <DialogDescription>
-            All {colleges.length} colleges in {label}. Search by name or screenshot the table.
+            {enrollment
+              ? `All ${colleges.length} colleges in ${label}. Search by name or screenshot the table.`
+              : `All ${colleges.length} colleges in ${label}, ranked by selection % from high to low. Search a college, or screenshot the table.`}
           </DialogDescription>
         </DialogHeader>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1">
@@ -54,6 +59,7 @@ export function CollegeWiseButton({
             colleges={colleges}
             trackedBySlug={trackedBySlug}
             kind={kind}
+            hrefBase={hrefBase}
           />
         </div>
       </DialogContent>

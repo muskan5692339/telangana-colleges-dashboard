@@ -335,6 +335,14 @@ export function studentsForCollege(cohort: Batch, collegeSlug: string) {
   return cohort.students.filter((student) => student.collegeSlug === collegeSlug);
 }
 
+export function studentsTrackedByCollege(cohort: Batch) {
+  const tracked: Record<string, number> = {};
+  for (const student of cohort.students) {
+    tracked[student.collegeSlug] = (tracked[student.collegeSlug] ?? 0) + 1;
+  }
+  return tracked;
+}
+
 export function acceleratorSelectedCount(college: College, students: Student[]) {
   const flagged = students.filter((student) => student.acceleratorSelected).length;
   return asHeadcount(Math.max(college.acceleratorSelected, flagged), college.enrolled);

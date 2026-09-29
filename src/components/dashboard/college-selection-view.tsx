@@ -4,7 +4,12 @@ import { CollegeWiseButton } from "@/components/dashboard/college-wise-button";
 import { EnrollmentTable } from "@/components/dashboard/enrollment-table";
 import { StudentTable } from "@/components/dashboard/student-table";
 import { Trail } from "@/components/dashboard/trail";
-import { collegesForCohort, studentsForCollege, acceleratorSelectedCount } from "@/lib/cohort-data";
+import {
+  collegesForCohort,
+  studentsForCollege,
+  acceleratorSelectedCount,
+  studentsTrackedByCollege,
+} from "@/lib/cohort-data";
 import type { Batch, College } from "@/lib/types";
 
 export function CollegeSelectionView({
@@ -17,12 +22,7 @@ export function CollegeSelectionView({
   const colleges = collegesForCohort(cohort);
   const students = selected ? studentsForCollege(cohort, selected.slug) : [];
   const selectedCount = selected ? acceleratorSelectedCount(selected, students) : undefined;
-  const trackedBySlug = Object.fromEntries(
-    colleges.map((college) => [
-      college.slug,
-      cohort.students.filter((student) => student.collegeSlug === college.slug).length,
-    ]),
-  );
+  const trackedBySlug = studentsTrackedByCollege(cohort);
   const enrollment = cohort.kind === "enrollment";
 
   return (
@@ -43,7 +43,7 @@ export function CollegeSelectionView({
             <p className="mt-1 max-w-2xl text-sm text-[var(--color-curie-muted)] md:text-base">
               {enrollment
                 ? "Student enrollment for the VigyanShaala tablet app. Select a college to see name, dummy email, and password. College-wise enrollment is an extra view in the top right."
-                : "Colleges listed here belong only to this cohort. Select a college to see its student-wise sheet. College-wise selection is an extra view in the top right."}
+                : "Colleges listed here belong only to this cohort. Select a college to see its student-wise sheet. College-wise nomination and selection is in the top right."}
             </p>
           </div>
           <div className="flex shrink-0 flex-col items-stretch gap-2 sm:flex-row">

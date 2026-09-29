@@ -104,8 +104,8 @@ export function StudentTable({
           message={`No students are tracked for ${collegeName} yet`}
           hint={
             showCollege
-              ? "College-wise selection is available in the top right. Import Student Wise Phase 2 to fill this tracker."
-              : "College-wise selection is available. Student Wise Phase 2 has not been imported for this college."
+              ? "College-wise nomination and selection is available in the top right. Import Student Wise Phase 2 to fill this tracker."
+              : "College-wise nomination and selection is available. Student Wise Phase 2 has not been imported for this college."
           }
         />
       ) : rows.length === 0 ? (
