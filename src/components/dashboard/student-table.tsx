@@ -13,7 +13,14 @@ import { StatusFillCell } from "@/components/dashboard/status-badge";
 import { StudentDetail } from "@/components/dashboard/student-detail";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ASSIGNMENT_COLUMNS, STATUS_FILL, type AssignmentStatus, type Student } from "@/lib/types";
+import {
+  ASSIGNMENT_COLUMNS,
+  STATUS_FILL,
+  STATUS_LABEL,
+  type AssignmentKey,
+  type AssignmentStatus,
+  type Student,
+} from "@/lib/types";
 import { formatPct, formatScore } from "@/lib/cohort-data";
 import { cn } from "@/lib/utils";
 
@@ -21,19 +28,22 @@ export function StudentTable({
   students = [],
   collegeName,
   showCollege = false,
+  showSelection = true,
 }: {
   students?: Student[];
   collegeName: string;
   showCollege?: boolean;
+  showSelection?: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Student | null>(null);
-  const [collegeFilter, setCollegeFilter] = useState<Set<string> | null>(
-    showCollege ? new Set([collegeName]) : null,
-  );
+  const [collegeFilter, setCollegeFilter] = useState<Set<string> | null>(null);
   const [codeFilter, setCodeFilter] = useState<Set<string> | null>(null);
   const [nameFilter, setNameFilter] = useState<Set<string> | null>(null);
   const [emailFilter, setEmailFilter] = useState<Set<string> | null>(null);
+  const [assignmentFilters, setAssignmentFilters] = useState<
+    Partial<Record<AssignmentKey, Set<string> | null>>
+  >({});
   const captureRef = useRef<HTMLDivElement>(null);
 
   const collegeOptions = useMemo(
@@ -52,6 +62,26 @@ export function StudentTable({
     () => uniqueSorted(students.map((student) => student.email)),
     [students],
   );
+  const assignmentOptions = useMemo(() => {
+    const order = [
+      "Accepted",
+      "Accepted with Feedback",
+      "Under Review",
+      "Rejected with Feedback",
+      "No Submission",
+      "Blank",
+    ];
+    const byKey = {} as Record<AssignmentKey, string[]>;
+    for (const col of ASSIGNMENT_COLUMNS) {
+      const present = new Set<string>();
+      for (const student of students) {
+        const status = student.assignments[col.key];
+        present.add(status ? STATUS_LABEL[status] : "Blank");
+      }
+      byKey[col.key] = order.filter((label) => present.has(label));
+    }
+    return byKey;
+  }, [students]);
 
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -60,6 +90,11 @@ export function StudentTable({
       if (!matchesHeaderFilter(student.studentCode, codeFilter)) return false;
       if (!matchesHeaderFilter(student.name, nameFilter)) return false;
       if (!matchesHeaderFilter(student.email, emailFilter)) return false;
+      for (const col of ASSIGNMENT_COLUMNS) {
+        const status = student.assignments[col.key];
+        const label = status ? STATUS_LABEL[status] : "Blank";
+        if (!matchesHeaderFilter(label, assignmentFilters[col.key] ?? null)) return false;
+      }
       if (!q) return true;
       return (
         student.name.toLowerCase().includes(q) ||
@@ -68,7 +103,7 @@ export function StudentTable({
         student.collegeName.toLowerCase().includes(q)
       );
     });
-  }, [collegeFilter, codeFilter, emailFilter, nameFilter, query, showCollege, students]);
+  }, [assignmentFilters, collegeFilter, codeFilter, emailFilter, nameFilter, query, showCollege, students]);
 
   const selectedCount = students.filter((student) => student.acceleratorSelected).length;
 
@@ -77,7 +112,9 @@ export function StudentTable({
       {students.length > 0 && (
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-sm text-[var(--color-curie-muted)] md:text-base">
-            {collegeName} · {selectedCount} accelerator selected of {students.length}
+            {showSelection
+              ? `${collegeName} · ${selectedCount} accelerator selected of ${students.length}`
+              : `${collegeName} · ${students.length} students`}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative min-w-0 flex-1 sm:w-72 sm:flex-none">
@@ -173,7 +210,17 @@ export function StudentTable({
                       col.mandatory && "bg-[#FFCC29] text-[var(--color-navy)]",
                     )}
                   >
-                    <span className="block font-semibold">{col.label}</span>
+                    <span className="flex items-start gap-1">
+                      <span className="font-semibold">{col.label}</span>
+                      <HeaderFilter
+                        label={col.short}
+                        options={assignmentOptions[col.key]}
+                        selected={assignmentFilters[col.key] ?? null}
+                        onChange={(next) =>
+                          setAssignmentFilters((current) => ({ ...current, [col.key]: next }))
+                        }
+                      />
+                    </span>
                     {col.mandatory ? (
                       <span className="mt-1 inline-flex rounded-full bg-[var(--color-navy)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-white">
                         Mandatory Accepted
@@ -189,12 +236,12 @@ export function StudentTable({
                   key={`${student.studentCode}-${student.email}`}
                   className={cn(
                     "cursor-pointer transition-colors",
-                    student.acceleratorSelected
+                    showSelection && student.acceleratorSelected
                       ? "bg-[var(--color-curie-green-light)] hover:!bg-[#d4ebc8]"
                       : "hover:!bg-[#efebe3]",
                   )}
                   style={
-                    student.acceleratorSelected
+                    showSelection && student.acceleratorSelected
                       ? { boxShadow: "inset 4px 0 0 var(--color-curie-green)" }
                       : undefined
                   }
@@ -203,7 +250,9 @@ export function StudentTable({
                   <TableCell
                     className={cn(
                       "sticky left-0 z-10 py-3 font-semibold tabular-nums",
-                      student.acceleratorSelected ? "bg-[var(--color-curie-green-light)]" : "bg-white",
+                      showSelection && student.acceleratorSelected
+                        ? "bg-[var(--color-curie-green-light)]"
+                        : "bg-white",
                     )}
                   >
                     {student.studentCode}
@@ -211,12 +260,14 @@ export function StudentTable({
                   <TableCell
                     className={cn(
                       "sticky left-[140px] z-10 py-3 font-semibold",
-                      student.acceleratorSelected ? "bg-[var(--color-curie-green-light)]" : "bg-white",
+                      showSelection && student.acceleratorSelected
+                        ? "bg-[var(--color-curie-green-light)]"
+                        : "bg-white",
                     )}
                   >
                     <div className="flex flex-col gap-1">
                       <span>{student.name}</span>
-                      {student.acceleratorSelected && <SelectedTag />}
+                      {showSelection && student.acceleratorSelected && <SelectedTag />}
                     </div>
                   </TableCell>
                   {showCollege && (
@@ -253,9 +304,15 @@ export function StudentTable({
         <p className="text-[12px] text-[var(--color-curie-muted)]">
           Showing {rows.length} of {students.length} students
           {showCollege ? " across colleges — use the header funnels to filter" : ` at ${collegeName}`}. Assignment 1, 4, and 6
-          must be accepted for Accelerator selection. Accelerator selected
-          rows are highlighted in light green
-          {selectedCount > 0 ? ` (${selectedCount})` : ""}. Assignment cells use the source-sheet
+          must be accepted for Accelerator selection. Use the funnel on an assignment column to filter by status.
+          {showSelection ? (
+            <>
+              {" "}
+              Accelerator selected rows are highlighted in light green
+              {selectedCount > 0 ? ` (${selectedCount})` : ""}.
+            </>
+          ) : null}{" "}
+          Assignment cells use the source-sheet
           colours. Tap a row for the Phase 2 record.
         </p>
       )}

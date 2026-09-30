@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { StudentShell } from "@/components/dashboard/student-shell";
+import { AssignmentStatusButton } from "@/components/dashboard/assignment-status-button";
 import { CollegePicker } from "@/components/dashboard/college-picker";
 import { getLiveCohortBySlug } from "@/lib/live-cohorts";
 import { collegesForCohort } from "@/lib/cohort-data";
@@ -30,6 +31,11 @@ export default async function StudentCohortPage({
       backHref={STUDENT_VIEW_BASE}
       backLabel="Back to student view"
     >
+      {!enrollment && (
+        <div className="flex justify-end">
+          <AssignmentStatusButton label={cohort.label} students={cohort.students} />
+        </div>
+      )}
       <CollegePicker
         colleges={colleges}
         cohortSlug={cohort.slug}

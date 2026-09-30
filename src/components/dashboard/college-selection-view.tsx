@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/layout/app-shell";
 import { CollegePicker } from "@/components/dashboard/college-picker";
+import { AssignmentStatusButton } from "@/components/dashboard/assignment-status-button";
 import { CollegeWiseButton } from "@/components/dashboard/college-wise-button";
 import { EnrollmentTable } from "@/components/dashboard/enrollment-table";
 import { StudentTable } from "@/components/dashboard/student-table";
@@ -47,6 +48,9 @@ export function CollegeSelectionView({
             </p>
           </div>
           <div className="flex shrink-0 flex-col items-stretch gap-2 sm:flex-row">
+            {!enrollment && (
+              <AssignmentStatusButton label={cohort.label} students={cohort.students} showSelection />
+            )}
             <CollegeWiseButton
               cohortSlug={cohort.slug}
               label={cohort.label}
