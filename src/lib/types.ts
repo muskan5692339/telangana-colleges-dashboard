@@ -133,11 +133,14 @@ export const ASSIGNMENT_COLUMNS: {
   label: string;
   short: string;
   aliases: string[];
+  /** Must be accepted for Accelerator selection. */
+  mandatory?: boolean;
 }[] = [
   {
     key: "exploringInternet",
     label: "Assignment_1 Exploring_Internet_&_AI",
     short: "Assignment_1",
+    mandatory: true,
     aliases: [
       "assignment_1",
       "assignment 1",
@@ -170,6 +173,7 @@ export const ASSIGNMENT_COLUMNS: {
     key: "careerPlanner",
     label: "Assignment_4_Career_Panner",
     short: "Assignment 4",
+    mandatory: true,
     aliases: [
       "assignment_4",
       "assignment 4",
@@ -194,6 +198,7 @@ export const ASSIGNMENT_COLUMNS: {
     key: "cvResume",
     label: "Assignment_6_CV_Resume",
     short: "Assignment 6",
+    mandatory: true,
     aliases: ["assignment_6", "assignment 6", "assignment_6_cv_resume", "cv resume", "resume"],
   },
 ];

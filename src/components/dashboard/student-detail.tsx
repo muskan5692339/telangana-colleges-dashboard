@@ -49,10 +49,20 @@ export function StudentDetail({
                   {ASSIGNMENT_COLUMNS.map((col) => (
                     <li
                       key={col.key}
-                      className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--color-curie-border)] bg-[var(--color-cream)] px-3 py-2.5"
+                      className="flex items-center justify-between gap-3 rounded-2xl border px-3 py-2.5"
+                      style={
+                        col.mandatory
+                          ? { background: "#FFCC29", borderColor: "#e6b800" }
+                          : { background: "var(--color-cream)", borderColor: "var(--color-curie-border)" }
+                      }
                     >
                       <span className="text-[12px] font-semibold text-[var(--color-navy)]">
                         {col.label}
+                        {col.mandatory ? (
+                          <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.06em] text-[#3d6b28]">
+                            Mandatory Accepted
+                          </span>
+                        ) : null}
                       </span>
                       <StatusBadge status={student.assignments[col.key]} />
                     </li>

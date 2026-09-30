@@ -166,8 +166,19 @@ export function StudentTable({
                 <TableHead className="h-14 text-right whitespace-nowrap">Assignment Score</TableHead>
                 <TableHead className="h-14 text-right whitespace-nowrap">Final Score</TableHead>
                 {ASSIGNMENT_COLUMNS.map((col) => (
-                  <TableHead key={col.key} className="h-14 min-w-[160px] whitespace-normal">
-                    {col.label}
+                  <TableHead
+                    key={col.key}
+                    className={cn(
+                      "h-14 min-w-[160px] whitespace-normal align-top",
+                      col.mandatory && "bg-[#FFCC29] text-[var(--color-navy)]",
+                    )}
+                  >
+                    <span className="block font-semibold">{col.label}</span>
+                    {col.mandatory ? (
+                      <span className="mt-1 inline-flex rounded-full bg-[var(--color-navy)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-white">
+                        Mandatory Accepted
+                      </span>
+                    ) : null}
                   </TableHead>
                 ))}
               </TableRow>
@@ -241,7 +252,8 @@ export function StudentTable({
       {students.length > 0 && (
         <p className="text-[12px] text-[var(--color-curie-muted)]">
           Showing {rows.length} of {students.length} students
-          {showCollege ? " across colleges — use the header funnels to filter" : ` at ${collegeName}`}. Accelerator selected
+          {showCollege ? " across colleges — use the header funnels to filter" : ` at ${collegeName}`}. Assignment 1, 4, and 6
+          must be accepted for Accelerator selection. Accelerator selected
           rows are highlighted in light green
           {selectedCount > 0 ? ` (${selectedCount})` : ""}. Assignment cells use the source-sheet
           colours. Tap a row for the Phase 2 record.
