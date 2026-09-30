@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, ZoomIn, ZoomOut } from "lucide-react";
 import { EmptyState } from "@/components/feedback/feedback";
 import { CaptureButton } from "@/components/dashboard/capture-button";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/components/dashboard/header-filter";
 import { StatusFillCell } from "@/components/dashboard/status-badge";
 import { StudentDetail } from "@/components/dashboard/student-detail";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
@@ -23,6 +24,9 @@ import {
 } from "@/lib/types";
 import { formatPct, formatScore } from "@/lib/cohort-data";
 import { cn } from "@/lib/utils";
+
+const MIN_ZOOM = 0.7;
+const MAX_ZOOM = 1.6;
 
 export function StudentTable({
   students = [],
@@ -44,6 +48,7 @@ export function StudentTable({
   const [assignmentFilters, setAssignmentFilters] = useState<
     Partial<Record<AssignmentKey, Set<string> | null>>
   >({});
+  const [zoom, setZoom] = useState(1);
   const captureRef = useRef<HTMLDivElement>(null);
 
   const collegeOptions = useMemo(
@@ -106,6 +111,29 @@ export function StudentTable({
   }, [assignmentFilters, collegeFilter, codeFilter, emailFilter, nameFilter, query, showCollege, students]);
 
   const selectedCount = students.filter((student) => student.acceleratorSelected).length;
+  const filtersActive =
+    query.trim() !== "" ||
+    collegeFilter != null ||
+    codeFilter != null ||
+    nameFilter != null ||
+    emailFilter != null ||
+    Object.values(assignmentFilters).some((value) => value != null);
+
+  function clearFilters() {
+    setQuery("");
+    setCollegeFilter(null);
+    setCodeFilter(null);
+    setNameFilter(null);
+    setEmailFilter(null);
+    setAssignmentFilters({});
+  }
+
+  function changeZoom(direction: 1 | -1) {
+    setZoom((current) => {
+      const next = Math.round((current + direction * 0.1) * 10) / 10;
+      return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, next));
+    });
+  }
 
   return (
     <div className="space-y-4">
@@ -127,11 +155,41 @@ export function StudentTable({
                 className="h-12 rounded-2xl bg-white pl-11 text-base"
               />
             </div>
+            <div className="flex items-center gap-1">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-12 rounded-full px-3"
+                aria-label="Zoom out"
+                disabled={zoom <= MIN_ZOOM}
+                onClick={() => changeZoom(-1)}
+              >
+                <ZoomOut className="h-4 w-4" />
+              </Button>
+              <span className="w-12 text-center text-sm font-semibold tabular-nums text-[var(--color-navy)]">
+                {Math.round(zoom * 100)}%
+              </span>
+              <Button
+                type="button"
+                variant="outline"
+                className="h-12 rounded-full px-3"
+                aria-label="Zoom in"
+                disabled={zoom >= MAX_ZOOM}
+                onClick={() => changeZoom(1)}
+              >
+                <ZoomIn className="h-4 w-4" />
+              </Button>
+            </div>
             <CaptureButton
               targetRef={captureRef}
               filename={`${collegeName}-student-wise`}
               label="Screenshot table"
             />
+            {filtersActive ? (
+              <Button type="button" className="h-12 rounded-full px-4" onClick={clearFilters}>
+                Back to main view
+              </Button>
+            ) : null}
           </div>
         </div>
       )}
@@ -145,14 +203,13 @@ export function StudentTable({
               : "College-wise nomination and selection is available. Student Wise Phase 2 has not been imported for this college."
           }
         />
-      ) : rows.length === 0 ? (
-        <EmptyState message="No students match this filter" hint="Clear a header filter or try another name." />
       ) : (
         <div
           ref={captureRef}
           className="overflow-x-auto rounded-[20px] bg-white"
           style={{ border: "1px solid var(--color-curie-border)", boxShadow: "var(--shadow-card)" }}
         >
+          <div style={{ zoom }}>
           <Table>
             <TableHeader>
               <TableRow className="bg-[#fbf4ea] hover:bg-[#fbf4ea]">
@@ -231,6 +288,19 @@ export function StudentTable({
               </TableRow>
             </TableHeader>
             <TableBody>
+              {rows.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={showCollege ? 15 : 14} className="h-24 text-center">
+                    <p className="font-semibold text-[var(--color-navy)]">No students match this filter</p>
+                    <p className="mt-1 text-sm text-[var(--color-curie-muted)]">
+                      Every status in a column was turned off. The funnels above are still open.
+                    </p>
+                    <Button type="button" className="mt-3 h-11 rounded-full px-5" onClick={clearFilters}>
+                      Back to main view
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ) : null}
               {rows.map((student) => (
                 <TableRow
                   key={`${student.studentCode}-${student.email}`}
@@ -297,6 +367,7 @@ export function StudentTable({
               ))}
             </TableBody>
           </Table>
+          </div>
         </div>
       )}
 

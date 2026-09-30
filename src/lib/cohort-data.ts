@@ -275,9 +275,9 @@ export const BATCHES: Record<Batch["id"], Batch> = {
   inc10: {
     id: "inc10",
     slug: "3rd-year-old-batch",
-    label: "3rd Year : Old Batch",
-    shortLabel: "3rd Year : Old Batch",
-    period: "Telangana college cohort",
+    label: "3rd Year : Old batch (Feb-Aug 2026)",
+    shortLabel: "3rd Year : Old batch (Feb-Aug 2026)",
+    period: "Feb-Aug 2026",
     kind: "monitoring",
     sourceSheet: "Inc10.0_Student_Facing_Monitoring.xlsx",
     importedSheets: ["College-wise selection", "Student Wise - Phase 2"],
@@ -287,9 +287,9 @@ export const BATCHES: Record<Batch["id"], Batch> = {
   inc13: {
     id: "inc13",
     slug: "2nd-year-new-batch",
-    label: "2nd Year : New Batch",
-    shortLabel: "2nd Year : New Batch",
-    period: "Telangana college cohort",
+    label: "2nd Year : Current Batch (Aug-Feb 2027)",
+    shortLabel: "2nd Year : Current Batch (Aug-Feb 2027)",
+    period: "Aug-Feb 2027",
     kind: "enrollment",
     appUrl: "https://mytribe.vigyanshaala.com",
     sourceSheet: "Inc13_Student Enrollment.xlsx",
@@ -311,6 +311,14 @@ export function getBatch(id: string | null | undefined): Batch {
 
 export function listCohorts(): Batch[] {
   return Object.values(BATCHES);
+}
+
+/** Old batch on the left, current batch on the right. */
+export function cohortsInSelectionOrder(cohorts: Batch[]) {
+  return [...cohorts].sort((left, right) => {
+    if (left.kind === right.kind) return 0;
+    return left.kind === "monitoring" ? -1 : 1;
+  });
 }
 
 export function isCohortSlug(value: string | null | undefined): value is Batch["slug"] {

@@ -80,7 +80,7 @@ export function SourceUploadForm({
       </p>
       {batch.id === "inc10" ? (
         <p className="mt-1 text-[12px] text-[var(--color-curie-muted)]">
-          3rd Year : Old Batch uses <span className="font-semibold">Inc10.0_Student_Facing_Monitoring.xlsx</span>{" "}
+          3rd Year : Old batch (Feb-Aug 2026) uses <span className="font-semibold">Inc10.0_Student_Facing_Monitoring.xlsx</span>{" "}
           (53 colleges). That is not the overall mastersheet filename.
         </p>
       ) : null}

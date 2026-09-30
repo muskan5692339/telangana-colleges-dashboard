@@ -36,7 +36,7 @@ export default async function ShareLinksPage() {
           </p>
           <p className="mt-3 break-all text-base font-semibold text-[var(--color-navy)]">{studentHub}</p>
           <p className="mt-2 text-sm text-[var(--color-curie-muted)]">
-            Direct 2nd Year tablet enrollment picker: {studentViewUrl("2nd-year-new-batch")}
+            Direct current-batch tablet enrollment picker: {studentViewUrl("2nd-year-new-batch")}
           </p>
         </div>
         <ShareLinkList cohorts={lists} hubUrl={studentHub} />

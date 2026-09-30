@@ -92,7 +92,7 @@ export function SideNav() {
             <p className="mt-1.5 text-[12px] leading-snug text-[var(--color-navy)]">
               {cohort
                 ? `Viewing ${cohort.label}. Change cohort anytime from Cohorts.`
-                : "Select 3rd Year : Old Batch or 2nd Year : New Batch to continue."}
+                : "Select the old batch or the current batch to continue."}
             </p>
           </div>
         </li>

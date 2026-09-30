@@ -49,8 +49,8 @@ export default async function LoginPage({
             </span>
           </h1>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/80 md:text-base">
-            Track Telangana college selection and student performance for 3rd Year : Old Batch and
-            2nd Year : New Batch.
+            Track Telangana college selection and student performance for 3rd Year : Old batch
+            (Feb-Aug 2026) and 2nd Year : Current Batch (Aug-Feb 2027).
           </p>
         </div>
       </section>

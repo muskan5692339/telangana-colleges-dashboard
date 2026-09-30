@@ -1,22 +1,20 @@
 import { StudentShell } from "@/components/dashboard/student-shell";
 import { CohortCards } from "@/components/dashboard/cohort-cards";
+import { cohortsInSelectionOrder } from "@/lib/cohort-data";
 import { listLiveCohorts } from "@/lib/live-cohorts";
 import { STUDENT_VIEW_BASE } from "@/lib/public-path";
 
 export const dynamic = "force-dynamic";
 
 export default async function StudentViewHomePage() {
-  const cohorts = await listLiveCohorts();
-  const studentFirst = [...cohorts].sort((left, right) =>
-    left.kind === "enrollment" ? -1 : right.kind === "enrollment" ? 1 : 0,
-  );
+  const cohorts = cohortsInSelectionOrder(await listLiveCohorts());
 
   return (
     <StudentShell
       title="Student view"
-      subtitle="No login. Open 2nd Year : New Batch for dummy email and password, or 3rd Year : Old Batch for the college sheet."
+      subtitle="No login. Old batch is on the left. Current batch is on the right, for dummy email and password."
     >
-      <CohortCards cohorts={studentFirst} hrefBase={STUDENT_VIEW_BASE} />
+      <CohortCards cohorts={cohorts} hrefBase={STUDENT_VIEW_BASE} />
     </StudentShell>
   );
 }

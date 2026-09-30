@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   const batchId = String(form.get("batch") ?? "");
   const file = form.get("file");
   if (!isBatchId(batchId)) {
-    return jsonError("Choose 3rd Year : Old Batch or 2nd Year : New Batch.");
+    return jsonError("Choose 3rd Year : Old batch (Feb-Aug 2026) or 2nd Year : Current Batch (Aug-Feb 2027).");
   }
   if (!(file instanceof File) || file.size === 0) {
     return jsonError("Attach an .xlsx source file.");
