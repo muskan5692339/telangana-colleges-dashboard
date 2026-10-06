@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { toast } from "sonner";
+import { BrandLogo } from "@/components/layout/brand-logo";
 
 export function TopBar({
   title,
@@ -38,15 +39,7 @@ export function TopBar({
       >
         <div className="flex min-w-0 items-center gap-3">
           <span className="hidden items-center gap-2 sm:flex">
-            <span
-              className="grid h-9 w-9 place-items-center rounded-full text-[11px] font-bold md:h-12 md:w-12 md:text-sm"
-              style={{
-                background: "linear-gradient(135deg, var(--color-curie-lightblue) 0%, #c8ecfb 100%)",
-                color: "var(--color-navy)",
-              }}
-            >
-              SfS
-            </span>
+            <BrandLogo className="h-10 md:h-12" />
             <span className="flex min-w-0 flex-col">
               <span
                 className="font-display text-[18px] font-bold tracking-[0.04em] leading-none md:text-[26px]"

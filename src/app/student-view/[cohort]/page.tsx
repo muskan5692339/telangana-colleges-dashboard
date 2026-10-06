@@ -3,7 +3,7 @@ import { StudentShell } from "@/components/dashboard/student-shell";
 import { AssignmentStatusButton } from "@/components/dashboard/assignment-status-button";
 import { CollegePicker } from "@/components/dashboard/college-picker";
 import { getLiveCohortBySlug } from "@/lib/live-cohorts";
-import { collegesForCohort } from "@/lib/cohort-data";
+import { collegesForCohort, isStudentViewCohort } from "@/lib/cohort-data";
 import { STUDENT_VIEW_BASE } from "@/lib/public-path";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export default async function StudentCohortPage({
 }) {
   const { cohort: cohortSlug } = await params;
   const cohort = await getLiveCohortBySlug(cohortSlug);
-  if (!cohort) notFound();
+  if (!cohort || !isStudentViewCohort(cohort.slug)) notFound();
 
   const colleges = collegesForCohort(cohort);
   const enrollment = cohort.kind === "enrollment";

@@ -321,6 +321,17 @@ export function cohortsInSelectionOrder(cohorts: Batch[]) {
   });
 }
 
+/** Public student view does not include the finished old batch. Staff pages still do. */
+const HIDDEN_FROM_STUDENT_VIEW = new Set<Batch["slug"]>(["3rd-year-old-batch"]);
+
+export function isStudentViewCohort(slug: string | null | undefined) {
+  return Boolean(slug) && !HIDDEN_FROM_STUDENT_VIEW.has(slug as Batch["slug"]);
+}
+
+export function cohortsForStudentView(cohorts: Batch[]) {
+  return cohortsInSelectionOrder(cohorts).filter((cohort) => isStudentViewCohort(cohort.slug));
+}
+
 export function isCohortSlug(value: string | null | undefined): value is Batch["slug"] {
   return listCohorts().some((cohort) => cohort.slug === value);
 }

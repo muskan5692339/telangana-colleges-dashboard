@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { BrandLogo } from "@/components/layout/brand-logo";
 
 export function StudentShell({
   kicker = "She for STEM · Telangana",
@@ -38,14 +39,19 @@ export function StudentShell({
             {backLabel}
           </Link>
         ) : null}
-        <p
-          className="font-display text-sm font-bold tracking-[0.08em] md:text-base"
-          style={{ color: "var(--color-curie-lightblue)" }}
-        >
-          {kicker}
-        </p>
-        <h1 className="font-display mt-2 text-2xl font-bold md:text-4xl">{title}</h1>
-        {subtitle ? <p className="mt-1 text-sm text-white/80">{subtitle}</p> : null}
+        <div className="flex items-center gap-4">
+          <BrandLogo className="h-14 shrink-0 md:h-16" />
+          <div className="min-w-0">
+            <p
+              className="font-display text-sm font-bold tracking-[0.08em] md:text-base"
+              style={{ color: "var(--color-curie-lightblue)" }}
+            >
+              {kicker}
+            </p>
+            <h1 className="font-display mt-1 text-2xl font-bold md:text-4xl">{title}</h1>
+            {subtitle ? <p className="mt-1 text-sm text-white/80">{subtitle}</p> : null}
+          </div>
+        </div>
       </header>
       <main className="mx-auto w-full max-w-[1600px] space-y-5 px-4 py-5 md:px-8 md:py-8">{children}</main>
     </div>

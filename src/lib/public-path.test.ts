@@ -4,7 +4,7 @@ import { isPublicPath } from "./public-path";
 import { INC13_SOURCE_OVERLAY } from "./inc13-source";
 import { INC10_SOURCE_COLLEGE_COUNT, INC10_SOURCE_OVERLAY, INC10_SOURCE_STUDENT_COUNT } from "./inc10-source";
 import { overlayBatch } from "./store-types";
-import { BATCHES } from "./cohort-data";
+import { BATCHES, cohortsForStudentView, listCohorts } from "./cohort-data";
 import { studentViewUrl } from "./share";
 import { INC13_ADILABAD_SLUG, INC13_ADILABAD_SOURCE_COUNT, INC13_SOURCE_ENROLLMENT_COUNT } from "./inc13-roster";
 
@@ -28,6 +28,13 @@ test("student-view Vercel URL is the public responder hub", () => {
   assert.equal(
     studentViewUrl("2nd-year-new-batch", "mjptbc-adilabad"),
     "https://telangana-colleges-dashboard.vercel.app/student-view/2nd-year-new-batch/mjptbc-adilabad",
+  );
+});
+
+test("student view keeps the current batch and omits the old batch", () => {
+  assert.deepEqual(
+    cohortsForStudentView(listCohorts()).map((cohort) => cohort.slug),
+    ["2nd-year-new-batch"],
   );
 });
 

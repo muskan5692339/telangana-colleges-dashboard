@@ -4,8 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Telangana Colleges Dashboard",
-  description:
-    "She for STEM monitoring for Telangana college cohorts — 3rd Year : Old batch (Feb-Aug 2026) and 2nd Year : Current Batch (Aug-Feb 2027).",
+  description: "She for STEM monitoring for Telangana college cohorts.",
 };
 
 export const viewport: Viewport = {

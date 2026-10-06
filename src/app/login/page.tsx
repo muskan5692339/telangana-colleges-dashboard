@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
+import { BrandLogo } from "@/components/layout/brand-logo";
 
 function safeNextPath(value?: string) {
   if (!value || !value.startsWith("/") || value.startsWith("//") || value.startsWith("/login")) {
@@ -32,14 +33,17 @@ export default async function LoginPage({
             style={{ background: "var(--color-curie-yellow)" }}
           />
         </div>
-        <div className="relative">
-          <p
-            className="font-display text-[22px] font-bold tracking-[0.06em] md:text-[28px]"
-            style={{ color: "var(--color-curie-lightblue)" }}
-          >
-            She for STEM
-          </p>
-          <p className="mt-1 text-sm text-white/75">VigyanShaala · Kalpana Incubators</p>
+        <div className="relative flex items-center gap-4">
+          <BrandLogo className="h-16 md:h-[4.5rem]" />
+          <div>
+            <p
+              className="font-display text-[22px] font-bold tracking-[0.06em] md:text-[28px]"
+              style={{ color: "var(--color-curie-lightblue)" }}
+            >
+              She for STEM
+            </p>
+            <p className="mt-1 text-sm text-white/75">VigyanShaala · Kalpana Incubators</p>
+          </div>
         </div>
         <div className="relative mt-10 max-w-md md:mt-0">
           <h1 className="font-display text-3xl font-bold leading-tight md:text-5xl">
