@@ -1,20 +1,24 @@
 import { StudentShell } from "@/components/dashboard/student-shell";
-import { CohortCards } from "@/components/dashboard/cohort-cards";
+import { StudentViewPicker, type StudentViewCard } from "@/components/dashboard/student-view-picker";
 import { cohortsInSelectionOrder } from "@/lib/cohort-data";
 import { listLiveCohorts } from "@/lib/live-cohorts";
-import { STUDENT_VIEW_BASE } from "@/lib/public-path";
 
 export const dynamic = "force-dynamic";
 
 export default async function StudentViewHomePage() {
-  const cohorts = cohortsInSelectionOrder(await listLiveCohorts());
+  const cards: StudentViewCard[] = cohortsInSelectionOrder(await listLiveCohorts()).map((cohort) => ({
+    slug: cohort.slug,
+    label: cohort.label,
+    kind: cohort.kind,
+    collegeCount: cohort.colleges.length,
+  }));
 
   return (
     <StudentShell
       title="Student view"
-      subtitle="No login. Old batch is on the left. Current batch is on the right, for dummy email and password."
+      subtitle="No login. Close a batch with the X. Add it back from the plus menu. Old batch stays on the left."
     >
-      <CohortCards cohorts={cohorts} hrefBase={STUDENT_VIEW_BASE} />
+      <StudentViewPicker cards={cards} />
     </StudentShell>
   );
 }
