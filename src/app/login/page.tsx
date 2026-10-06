@@ -23,17 +23,7 @@ export default async function LoginPage({
         className="relative overflow-hidden px-6 py-10 text-white md:flex md:w-[46%] md:flex-col md:justify-between md:px-12 md:py-14"
         style={{ background: "var(--gradient-navy)" }}
       >
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div
-            className="absolute -top-20 -right-10 h-56 w-56 rounded-full opacity-30 blur-3xl"
-            style={{ background: "var(--color-curie-lightblue)" }}
-          />
-          <div
-            className="absolute bottom-10 left-10 h-40 w-40 rounded-full opacity-25 blur-3xl"
-            style={{ background: "var(--color-curie-yellow)" }}
-          />
-        </div>
-        <div className="relative flex items-center gap-4">
+        <div className="flex items-center gap-4">
           <BrandLogo className="h-16 md:h-[4.5rem]" />
           <div>
             <p

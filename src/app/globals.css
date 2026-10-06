@@ -27,7 +27,7 @@
     0 14px 32px -18px rgba(31, 54, 81, 0.14);
   --shadow-soft: 0 2px 8px rgba(31, 54, 81, 0.06);
   --shadow-glow-yellow: 0 8px 28px -10px rgba(255, 204, 41, 0.55);
-  --gradient-navy: linear-gradient(160deg, #2c4869 0%, #355576 55%, #406488 100%);
+  --gradient-navy: linear-gradient(90deg, #2b4868 0%, #4b7a58 52%, #69ab4a 100%);
   --gradient-sun: linear-gradient(135deg, #ffcc29 0%, #ffb347 100%);
   --gradient-leaf: linear-gradient(135deg, #69ab4a 0%, #8ec57a 100%);
   --color-background: var(--background);

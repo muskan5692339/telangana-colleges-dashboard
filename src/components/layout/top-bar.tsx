@@ -22,19 +22,9 @@ export function TopBar({
   }
 
   return (
-    <header className="relative text-white" style={{ background: "var(--gradient-navy)" }}>
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-16 -right-10 h-40 w-40 rounded-full opacity-30 blur-3xl"
-          style={{ background: "var(--color-curie-lightblue)" }}
-        />
-        <div
-          className="absolute -top-10 left-1/3 h-24 w-24 rounded-full opacity-20 blur-2xl"
-          style={{ background: "var(--color-curie-yellow)" }}
-        />
-      </div>
+    <header className="text-white" style={{ background: "var(--gradient-navy)" }}>
       <div
-        className="relative mx-auto flex min-h-16 w-full items-center justify-between gap-3 px-4 pb-2 pt-3 md:min-h-[86px] md:px-8 md:py-4"
+        className="mx-auto flex min-h-16 w-full items-center justify-between gap-3 px-4 pb-2 pt-3 md:min-h-[86px] md:px-8 md:py-4"
         style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}
       >
         <div className="flex min-w-0 items-center gap-3">
